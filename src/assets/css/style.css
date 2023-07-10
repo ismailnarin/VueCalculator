@@ -15,6 +15,7 @@
 	grid-template-rows: repeat(5, 100px);
 }
 .calculatorNumberItem {
+	user-select: none;
 	cursor:pointer;
 	font-weight: 600;
 	color: white;
