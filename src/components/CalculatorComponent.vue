@@ -88,16 +88,16 @@
 			return {
 				calculateNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "."],
 				operators: ["+", "-", "/", "x", "="],
-				firstNumber: null,
-				secondNumber: null,
-				buttonOperator: null,
-				result: null,
+				firstNumber: "",
+				secondNumber: "",
+				buttonOperator: "",
+				result: "",
 				operatorCounter: 0,
 			};
 		},
 		methods: {
 			addNumber(event) {
-				if (this.operatorCounter > 0 && this.firstNumber !== null) {
+				if (this.operatorCounter > 0 && this.firstNumber !== "") {
 					this.operatorCounter = 0;
 					this.provideData.screenResult = "";
 				}
@@ -107,19 +107,20 @@
 			addOperator(event) {
 				this.operatorCounter++;
 				if (event.target.textContent == "AC") {
-					this.buttonOperator = null;
-					this.result = null;
+					this.buttonOperator = "";
+					this.result = "";
 					this.provideData.screenResult = "";
-					this.firstNumber = null;
-					this.secondNumber = null;
+					this.firstNumber = "";
+					this.secondNumber = "";
 				} else {
-					if (this.firstNumber == null) {
-						var buttonText = event.target.textContent;
-						this.buttonOperator = buttonText;
+					if (this.firstNumber == "") {
 						this.firstNumber = this.provideData.screenResult;
+						if (this.firstNumber !== "") {
+							this.buttonOperator = event.target.textContent;
+						}
 					} else if (
-						this.firstNumber !== null &&
-						this.secondNumber == null &&
+						this.firstNumber !== "" &&
+						this.secondNumber == "" &&
 						this.operatorCounter == 1
 					) {
 						this.secondNumber = this.provideData.screenResult;
@@ -129,7 +130,11 @@
 							this.buttonOperator
 						);
 					}
-					this.buttonOperator = event.target.textContent;
+					console.log(this.firstNumber !== "");
+					console.log(this.secondNumber !== "");
+					if (this.firstNumber !== "") {
+						this.buttonOperator = event.target.textContent;
+					}
 					this.provideData.screenResult = "";
 				}
 			},
@@ -154,14 +159,14 @@
 							parseFloat(firstNumber) * (parseFloat(secondNumber) / 100);
 						break;
 					case "=":
-						this.buttonOperator = null;
+						this.buttonOperator = "";
 						this.result = this.provideData.screenResult;
 						break;
 				}
-				this.secondNumber = null;
+				this.secondNumber = "";
 				this.firstNumber = this.result;
 				this.provideData.screenResult = this.result;
-				this.result = null;
+				this.result = "";
 			},
 		},
 		inject: ["provideData"],
@@ -170,6 +175,7 @@
 				this.provideData.screenFirstNumber = this.firstNumber;
 			},
 			buttonOperator() {
+				console.log("calisti");
 				this.provideData.screenOperator = this.buttonOperator;
 			},
 		},
