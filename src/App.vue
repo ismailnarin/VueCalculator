@@ -1,11 +1,28 @@
 <template>
-  <CalculatorComponent />
+  <div>
+    <AmoundPaid/>
+    <CalculatorComponent />
+  </div>
 </template>
 <script>
 import CalculatorComponent from "@/components/CalculatorComponent";
+import AmoundPaid from "@/components/AmoundPaid";
 export default {
+    data() {
+      return {
+        screen:{
+          screenResult:"",
+        },    
+      }
+  },
   components: {
-    CalculatorComponent: CalculatorComponent,
+    CalculatorComponent,
+    AmoundPaid
+  },
+  provide() {
+    return {
+      provideData: this.screen,
+    };
   },
 };
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <div ref="calculatorScreen" class="calculatorScreen"></div>
   <div class="calculatorContainer">
     <div class="calculatorNumbers">
       <div @click="addOperator" key="AC" class="calculatorNumberItem">AC</div>
@@ -11,11 +10,78 @@
     </div>
   </div>
 </template>
+<style>
+.calculatorScreen {
+	font-family: monospace;
+	font-size: 100px;
+	display: flex;
+	width: 100%;
+	height: 300px;
+	color: white;
+}
+.calculatorContainer {
+	display: flex;
+	width: 60%;
+}
+.calculatorNumbers {
+	grid-template-columns: repeat(3, 100px);
+	display: grid;
+	gap: 10px;
+	grid-template-rows: repeat(5, 100px);
+}
+.calculatorNumberItem {
+	user-select: none;
+	cursor:pointer;
+	font-weight: 600;
+	color: white;
+	border-radius: 50px;
+	display: flex;
+	background-color: #2f2f2f;
+	justify-content: center;
+	align-items: center;
+	font-size: 25px;
+}
+.calculatorNumberItem:hover{
+	background-color: #3b3b3b;
+}
+.calculatorNumberItem:nth-last-child(2){
+	grid-column-start: 1;
+  grid-column-end: 3;
+}
+.calculatorNumberItem:nth-child(1){
+	grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.calculatorNumberItem:nth-child(1),
+	.calculatorNumberItem:nth-child(2){
+		background-color:#838383;
+	}
+
+.calculatorOperators {
+    margin-left: 10px;
+    color: white;
+    grid-template-columns: repeat(1, 100px);
+    grid-template-rows: repeat(1, 100px);
+    display: grid;
+    gap: 10px;
+}
+.calculatorOperatorItems {
+	display: flex;
+	background-color: orange;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50px;
+	font-size: 30px;
+	font-weight: bold;
+	cursor:pointer;
+	user-select: none;
+}
+</style>
 <script>
 export default {
   data() {
   return {
-    screenResult:"",
     calculateNumbers: [1,2,3,4,5,6,7,8,9,0,","],
     operators:["+","-","/","x","="],
     firstNumber:null,
@@ -29,17 +95,17 @@ methods: {
   addNumber(event){
     if(this.operatorCounter>0 && this.firstNumber!==null){
       this.operatorCounter=0;
-      this.screenResult=""
+      this.provideData.screenResult=""
     }
     var buttonText = event.target.textContent;
-    this.screenResult += buttonText.toString();
+    this.provideData.screenResult += buttonText.toString();
   },
   addOperator(event){
     this.operatorCounter++;
     if(event.target.textContent=="AC"){
       this.buttonOperator=null;
       this.result=null;
-      this.screenResult="";
+      this.provideData.screenResult="";
       this.firstNumber=null;
       this.secondNumber=null;
     }
@@ -47,10 +113,10 @@ methods: {
       if(this.firstNumber==null){
         var buttonText=event.target.textContent;
         this.buttonOperator = buttonText;
-        this.firstNumber=this.screenResult;
+        this.firstNumber=this.provideData.screenResult;
       }
       else if(this.firstNumber!==null && this.secondNumber ==null && this.operatorCounter==1){
-        this.secondNumber = this.screenResult;
+        this.secondNumber = this.provideData.screenResult;
         this.mathProcess(this.firstNumber, this.secondNumber, this.buttonOperator);
       }
       this.buttonOperator=event.target.textContent;
@@ -76,20 +142,15 @@ methods: {
         break;
       case "=":
         this.buttonOperator=null;
-        this.result=this.screenResult;
+        this.result=this.provideData.screenResult;
         break;
     }
     this.secondNumber=null;
     this.firstNumber=this.result;
-    this.screenResult=this.result;
+    this.provideData.screenResult=this.result;
     this.result=null;
   }
 },
-watch:{
-  screenResult(){
-    const calculatorScreen=this.$refs.calculatorScreen;
-    calculatorScreen.textContent=this.screenResult;
-  },
-}
+inject : ['provideData']
 };
 </script>
