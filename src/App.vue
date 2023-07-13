@@ -8,13 +8,13 @@
 				<ProductList />
 			</div>
 		</div>
-		<!-- <AmoundPaid />
-		<CalculatorComponent /> -->
+		<AmoundPaid />
+		<CalculatorComponent />
 	</div>
 </template>
 <script>
-	// import CalculatorComponent from "@/components/CalculatorComponent";
-	// import AmoundPaid from "@/components/AmoundPaid";
+	import CalculatorComponent from "@/components/CalculatorComponent";
+	import AmoundPaid from "@/components/AmoundPaid";
 	import ProductList from "@/components/ProductsList";
 	import editProductList from "@/components/product/editProductList";
 	import axios from "axios";
@@ -35,8 +35,8 @@
 		components: {
 			ProductList,
 			editProductList,
-			// CalculatorComponent,
-			// AmoundPaid,
+			CalculatorComponent,
+			AmoundPaid,
 		},
 		provide() {
 			return {

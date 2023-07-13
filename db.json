@@ -1,3 +1,22 @@
 {
-  "product": []
+  "product": [
+    {
+      "title": "Duş Jeli",
+      "created_at": "2023-07-13T15:00:12.122Z",
+      "price": 1000,
+      "id": 1
+    },
+    {
+      "title": "Duş Jeli",
+      "created_at": "2023-07-13T15:00:13.705Z",
+      "price": 1000,
+      "id": 2
+    },
+    {
+      "title": "Duş Jeli",
+      "created_at": "2023-07-13T15:00:14.313Z",
+      "price": 1000,
+      "id": 3
+    }
+  ]
 }
