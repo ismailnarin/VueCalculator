@@ -5,7 +5,7 @@
 			v-for="product in this.provideProduct.productData"
 			:key="product.id">
 			<div
-				@click="deleteProduct(product)"
+				@click="editProduct(product)"
 				v-if="this.provideProduct.editAllProduct"
 				class="productEdit">
 				<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -58,13 +58,22 @@
 		components: {
 			AddProduct,
 		},
-		inject: ["provideProduct"],
+		inject: ["provideProduct", "providePopUp"],
 		methods: {
-			deleteProduct(product) {
-				axios.delete(`http://localhost:3000/product/${product.id}`).then(() => {
-					this.provideProduct.productData =
-						this.provideProduct.productData.filter((i) => i.id !== product.id);
-				});
+			editProduct(product) {
+				this.providePopUp.popUpStatus = true;
+				this.providePopUp.popUpName = "EditProduct";
+				const i = 0;
+				if (i == 1) {
+					axios
+						.delete(`http://localhost:3000/product/${product.id}`)
+						.then(() => {
+							this.provideProduct.productData =
+								this.provideProduct.productData.filter(
+									(i) => i.id !== product.id
+								);
+						});
+				}
 			},
 		},
 	};

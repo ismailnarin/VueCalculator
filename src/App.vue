@@ -1,4 +1,9 @@
 <template>
+	<popUp v-if="this.popUp.popUpStatus">
+		<template #modalContent>
+			<component :is="popUp.popUpName" />
+		</template>
+	</popUp>
 	<div>
 		<div>
 			<div>
@@ -13,10 +18,12 @@
 	</div>
 </template>
 <script>
+	import PopUp from "@/components/modal-popup/PopUp";
+	import EditProduct from "@/components/modal-popup/modal-content/modalEditProduct";
 	import CalculatorComponent from "@/components/CalculatorComponent";
 	import AmoundPaid from "@/components/AmoundPaid";
 	import ProductList from "@/components/ProductsList";
-	import editProductList from "@/components/product/editProductList";
+	import EditProductList from "@/components/product/EditProductList";
 	import axios from "axios";
 	export default {
 		data() {
@@ -30,18 +37,25 @@
 					screenFirstNumber: "",
 					screenOperator: "",
 				},
+				popUp: {
+					popUpName: "",
+					popUpStatus: false,
+				},
 			};
 		},
 		components: {
+			PopUp,
 			ProductList,
-			editProductList,
+			EditProductList,
 			CalculatorComponent,
 			AmoundPaid,
+			EditProduct,
 		},
 		provide() {
 			return {
 				provideData: this.screen,
 				provideProduct: this.product,
+				providePopUp: this.popUp,
 			};
 		},
 		mounted() {
