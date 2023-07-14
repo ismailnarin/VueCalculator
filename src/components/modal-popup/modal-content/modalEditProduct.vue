@@ -6,11 +6,14 @@
 				<img src="https://placehold.co/300x300" alt="" />
 			</div>
 			<div class="editProduct">
-				<label for="">Ürün Adı:</label
+				<label for="">{{ provideProduct }}</label>
+			</div>
+			<div class="editProduct">
+				<label for="productName">Ürün Adı:</label
 				><input type="text" name="productName" id="productName" class="text" />
 			</div>
 			<div class="editProduct">
-				<label for="">Ürün Fiyatı:</label
+				<label for="productPrice">Ürün Fiyatı:</label
 				><input
 					type="text"
 					name="productPrice"
@@ -18,7 +21,7 @@
 					class="text" />
 			</div>
 			<div class="editProduct">
-				<label for="">Ürün Kritik Stoğu:</label
+				<label for="productCriticalStock">Ürün Kritik Stoğu:</label
 				><input
 					type="text"
 					name="productCriticalStock"
@@ -113,3 +116,8 @@
 		transition: all ease 0.5s;
 	}
 </style>
+<script>
+	export default {
+		inject: ["provideProduct"],
+	};
+</script>
