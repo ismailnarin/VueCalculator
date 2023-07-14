@@ -6,7 +6,7 @@
 				<img src="https://placehold.co/300x300" alt="" />
 			</div>
 			<div class="editProduct">
-				<label for="">{{ provideProduct }}</label>
+				<label for="">{{ provideProduct.editProduct.id }}</label>
 			</div>
 			<div class="editProduct">
 				<label for="productName">Ürün Adı:</label
