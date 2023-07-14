@@ -31,6 +31,7 @@
 				product: {
 					productData: "",
 					editAllProduct: false,
+					editProduct: "",
 				},
 				screen: {
 					screenResult: "",
