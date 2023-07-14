@@ -63,7 +63,7 @@
 			editProduct(product) {
 				this.providePopUp.popUpStatus = true;
 				this.providePopUp.popUpName = "EditProduct";
-				this.providePopUp.editProduct = product;
+				this.provideProduct.editProduct = product;
 				const i = 0;
 				if (i == 1) {
 					axios
