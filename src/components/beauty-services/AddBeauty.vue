@@ -1,8 +1,8 @@
 <template>
-	<div @click="addProduct" class="addProduct">+</div>
+	<div @click="addBeauty" class="addBeauty">+</div>
 </template>
 <style>
-	.addProduct {
+	.addBeauty {
 		margin: 5px;
 		width: 200px;
 		height: 200px;
@@ -27,8 +27,8 @@
 	export default {
 		inject: ["providePopUp"],
 		methods: {
-			addProduct() {
-				this.providePopUp.popUpName = "AddProduct";
+			addBeauty() {
+				this.providePopUp.popUpName = "AddBeauty";
 				this.providePopUp.popUpStatus = true;
 			},
 		},
