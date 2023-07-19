@@ -25,7 +25,7 @@
 				required />
 		</div>
 		<div class="editBeauty">
-			<label for="beautyPrice">İşlem Fiyatı:</label
+			<label for="beautyPrice">İşlem Tek Seans Ücreti</label
 			><input
 				v-model="addBeautyItem.beautyPrice"
 				type="number"
@@ -34,36 +34,131 @@
 				required />
 		</div>
 		<div class="editBeauty">
-			<input
-				type="number"
-				name="beautyCriticalStock"
-				id="beautyCriticalStock"
-				v-model="addBeautyItem.beautyCriticalStock"
-				required />
-			<label for="beautyPrice">İşlem Se</label>
-			<select>
-				<option v-for="i in 20" :key="i">{{ i }}</option>
-			</select>
-		</div>
-		<div class="editBeauty">
-			<label for="">Ürün Stoğu:</label
-			><input
-				type="number"
-				name="beautyStock"
-				id="beautyStock"
-				v-model="addBeautyItem.beautyStock"
-				required />
+			<div>
+				<div class="openPackageContainer" style="">
+					<label for="openPackage" style="cursor: pointer"
+						>Paket Ücretlerini Aç</label
+					>
+					<input
+						type="checkbox"
+						name=""
+						id="openPackage"
+						hidden
+						v-model="openPackageCheck" />
+					<label for="openPackage" style="width: 15%" class="toggleCheckBox">
+						<div class="toggleCheckBoxItem"></div>
+					</label>
+				</div>
+				<div
+					class="seansContainer"
+					:style="
+						openPackageCheck
+							? 'opacity:1;pointer-events:auto'
+							: 'opacity:0.25;pointer-events:none'
+					">
+					<div class="seansCounter">
+						<label for="seansCount">Seans Sayısı</label>
+						<input
+							style="width: 70%; margin-top: 15px"
+							type="number"
+							name=""
+							id="seansCount"
+							v-model="seansNumber" />
+					</div>
+					<div class="seansCounter">
+						<label for="seansPrice">Paket Ücreti</label>
+						<input
+							style="width: 70%; margin-top: 15px"
+							type="number"
+							name=""
+							id="seansPrice"
+							v-model="packagePrice" />
+					</div>
+					<div class="seansButtonContainer">
+						<button @click="addSeans">Ekle</button>
+					</div>
+				</div>
+				<div>
+					<div v-for="(value, index) in packages" :key="index">
+						<div>{{ value.seansNumber }}</div>
+						<div>{{ value.packagePrice }}</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="editBeauty">
 			<div>
 				<button type="submit" id="beautyEditSaveButton" @click="addBeauty">
 					Kaydet
 				</button>
+				{{ packages }}
 			</div>
 		</div>
 	</div>
 </template>
 <style>
+	.seansButtonContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		margin-bottom: 20px;
+	}
+	.seansButtonContainer button {
+		color: white;
+		background-color: #0072ff;
+		padding: 5px 15px;
+		font-weight: bold;
+		border-radius: 10px;
+		border: none;
+		cursor: pointer;
+	}
+	.seansContainer {
+		padding: 20px;
+		display: flex;
+		flex-direction: row;
+	}
+	.openPackageContainer {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 15px;
+	}
+	.openPackageContainer input:checked + .toggleCheckBox {
+		background-color: #399767;
+	}
+
+	.openPackageContainer input:checked + .toggleCheckBox .toggleCheckBoxItem {
+		transform: translateX(190%);
+	}
+	.toggleCheckBox {
+		position: relative;
+		padding: 5px;
+		display: flex;
+		width: 70px;
+		height: 20px;
+		background-color: black;
+		border-radius: 15px;
+		cursor: pointer;
+		transition: all ease 0.5s;
+	}
+	.toggleCheckBoxItem {
+		position: absolute;
+		display: flex;
+		width: 30%;
+		height: 73%;
+		background-color: white;
+		border-radius: 15px;
+		transition: all ease 0.5s;
+	}
+	.seansCounter {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 15px;
+		align-items: center;
+	}
+	.seansCounter label {
+		width: 100% !important;
+		justify-content: center;
+	}
 	.editBeautyTitle {
 		text-align: center;
 		font-size: 35px;
@@ -90,6 +185,7 @@
 		flex-direction: column;
 	}
 	.editBeauty label {
+		width: 50%;
 		display: flex;
 		align-content: center;
 		align-items: center;
@@ -142,6 +238,10 @@
 	export default {
 		data() {
 			return {
+				packages: [],
+				seansNumber: 0,
+				packagePrice: 0,
+				openPackageCheck: false,
 				addBeautyItem: {
 					beautyName: "",
 					beautyPrice: "",
@@ -152,6 +252,15 @@
 			};
 		},
 		methods: {
+			addSeans() {
+				if (this.seansNumber !== 0 && this.packagePrice !== 0) {
+					const addPackage = {
+						seansNumber: this.seansNumber,
+						packagePrice: this.packagePrice,
+					};
+					this.packages.push(addPackage);
+				}
+			},
 			onFileChange(event) {
 				const file = event.target.files[0];
 				this.addBeautyItem.beautyImage = file;
@@ -186,6 +295,7 @@
 				}
 			},
 		},
+
 		inject: ["provideBeauty", "providePopUp"],
 	};
 </script>
