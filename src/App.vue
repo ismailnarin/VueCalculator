@@ -82,6 +82,7 @@
 			axios
 				.get("http://localhost:3000/beauty-services")
 				.then((items_response) => {
+					console.log(items_response);
 					this.beauty.beautyData = items_response.data || [];
 				});
 		},

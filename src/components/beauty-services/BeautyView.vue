@@ -1,15 +1,33 @@
 <template>
-	<div>
-		<EditBeautyList />
-	</div>
-	<div class="beautyContainer">
+	<div class="beautyCardContainer" @click="seansWindow = !seansWindow">
 		<div
-			class="beautyCard"
-			v-for="beauty in this.provideBeauty.beautyData"
-			:key="beauty.id">
-			<BeautyView :beautyFor="beauty" />
+			@click="editBeauty(beautyFor)"
+			v-if="this.provideBeauty.editAllBeauty"
+			class="beautyEdit">
+			<i class="fa fa-pencil" aria-hidden="true"></i>
 		</div>
-		<AddBeauty />
+		<div class="beautyImage">
+			<img :src="beautyFor.image" alt="" />
+		</div>
+		<div class="beautyTitle">
+			{{ beautyFor.title }}
+		</div>
+		<div class="beautyPrice">{{ beautyFor.price }} TL</div>
+	</div>
+	<div v-if="beautyFor.seansCheck && seansWindow" class="beautySeans">
+		<div class="beautySeansContainer">
+			<span
+				><div>Tek Seans</div>
+				<div>:</div>
+				<div>{{ beautyFor.price }} TL</div></span
+			>
+			<span v-for="seans in beautyFor.seans" :key="seans.seansID"
+				><div>{{ seans.seansNumber }} Seans</div>
+				<div>:</div>
+				<div>{{ seans.packagePrice }} TL</div>
+			</span>
+		</div>
+		<div class="closeButton" @click="seansWindow = !seansWindow">KAPAT</div>
 	</div>
 </template>
 <style>
@@ -32,6 +50,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		cursor: auto;
+		z-index: 100;
 	}
 
 	.beautySeansContainer {
@@ -127,27 +146,19 @@
 	}
 </style>
 <script>
-	import AddBeauty from "@/components/beauty-services/AddBeauty";
-	import BeautyView from "@/components/beauty-services/BeautyView";
-	import EditBeautyList from "@/components/beauty-services/EditBeautyList";
-
 	export default {
 		data() {
 			return {
 				seansWindow: false,
 			};
 		},
-		components: {
-			AddBeauty,
-			EditBeautyList,
-			BeautyView,
-		},
 		inject: ["providePopUp", "provideBeauty"],
+		props: ["beautyFor"],
 		methods: {
-			editbeauty(beauty) {
+			editbeauty(beautyFor) {
 				this.providePopUp.popUpStatus = true;
 				this.providePopUp.popUpName = "EditBeauty";
-				this.provideBeauty.editBeauty = beauty;
+				this.provideBeauty.editBeauty = beautyFor;
 			},
 		},
 	};

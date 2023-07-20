@@ -44,7 +44,7 @@
 						name=""
 						id="openPackage"
 						hidden
-						v-model="openPackageCheck" />
+						v-model="addBeautyItem.openPackageCheck" />
 					<label for="openPackage" style="width: 15%" class="toggleCheckBox">
 						<div class="toggleCheckBoxItem"></div>
 					</label>
@@ -52,7 +52,7 @@
 				<div
 					class="seansContainer"
 					:style="
-						openPackageCheck
+						addBeautyItem.openPackageCheck
 							? 'opacity:1;pointer-events:auto'
 							: 'opacity:0.25;pointer-events:none'
 					">
@@ -79,9 +79,13 @@
 					</div>
 				</div>
 				<div>
-					<div v-for="(value, index) in packages" :key="index">
-						<div>{{ value.seansNumber }}</div>
-						<div>{{ value.packagePrice }}</div>
+					<div
+						v-for="value in packages"
+						:key="value.seansID"
+						class="seansAddContainer">
+						<div>Seans Sayısı : {{ value.seansNumber }}</div>
+						<div>Paket Fiyatı : {{ value.packagePrice }}</div>
+						<div><button @click="deleteSeans(value.seansID)">Sil</button></div>
 					</div>
 				</div>
 			</div>
@@ -91,12 +95,27 @@
 				<button type="submit" id="beautyEditSaveButton" @click="addBeauty">
 					Kaydet
 				</button>
-				{{ packages }}
 			</div>
 		</div>
 	</div>
 </template>
 <style>
+	.seansAddContainer {
+		padding-bottom: 10px;
+		border-bottom: 1px solid #ffffff3d;
+		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.seansAddContainer button {
+		border-radius: 10px;
+		cursor: pointer;
+		border: none;
+		padding: 4px 15px;
+		background-color: #e34949d1;
+		color: white;
+	}
 	.seansButtonContainer {
 		display: flex;
 		flex-direction: column;
@@ -241,23 +260,30 @@
 				packages: [],
 				seansNumber: 0,
 				packagePrice: 0,
-				openPackageCheck: false,
 				addBeautyItem: {
 					beautyName: "",
 					beautyPrice: "",
-					beautyCriticalStock: "",
-					beautyStock: "",
-					beautyImage: "",
+					openPackageCheck: false,
 				},
 			};
 		},
 		methods: {
+			deleteSeans(seansID) {
+				console.log(seansID);
+				this.packages = this.packages.filter(
+					(item) => item.seansID !== seansID
+				);
+			},
 			addSeans() {
 				if (this.seansNumber !== 0 && this.packagePrice !== 0) {
 					const addPackage = {
+						seansID: Date.now(),
 						seansNumber: this.seansNumber,
 						packagePrice: this.packagePrice,
 					};
+					this.seansNumber = 0;
+					this.packagePrice = 0;
+					console.log(addPackage);
 					this.packages.push(addPackage);
 				}
 			},
@@ -269,7 +295,7 @@
 			async addBeauty() {
 				let error = { counter: 0, name: "" };
 				for (const [key, value] of Object.entries(this.addBeautyItem)) {
-					if (value == "" && key !== "beautyImage") {
+					if ((key == "beautyName" || key == "beautyPrice") && value == "") {
 						error.counter += 1;
 						error.name = key;
 						break;
@@ -282,14 +308,16 @@
 						created_at: new Date(),
 						price: this.addBeautyItem.beautyPrice,
 						image: "https://placehold.co/300x300",
-						stock: this.addBeautyItem.beautyStock,
-						criticalStock: this.addBeautyItem.beautyCriticalStock,
+						seans: this.packages,
+						seansCheck: this.addBeautyItem.openPackageCheck,
 					};
-					await axios.post("http://localhost:3000/beauty", saveObject);
-					axios.get("http://localhost:3000/beauty").then((items_response) => {
-						this.provideBeauty.beautyData = items_response.data || [];
-						this.providePopUp.popUpStatus = false;
-					});
+					await axios.post("http://localhost:3000/beauty-services", saveObject);
+					axios
+						.get("http://localhost:3000/beauty-services")
+						.then((items_response) => {
+							this.provideBeauty.beautyData = items_response.data || [];
+							this.providePopUp.popUpStatus = false;
+						});
 				} else {
 					alert(`Lütfen ${error.name} Değerini Giriniz`);
 				}
