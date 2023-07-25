@@ -80,7 +80,9 @@
 
 		<div class="editBeauty">
 			<div>
-				<button id="beautyEditSaveButton">Kaydet</button>
+				<button id="beautyEditSaveButton" @click="editSaveBeauty">
+					Kaydet
+				</button>
 			</div>
 			<div>
 				<button
@@ -255,7 +257,7 @@
 			deleteBeauty(beautyId) {
 				this.providePopUp.popUpStatus = false;
 				axios
-					.get(`http://localhost:3000/beauty-services/${beautyId}`)
+					.delete(`http://localhost:3000/beauty-services/${beautyId}`)
 					.then(() => {
 						this.provideBeauty.beautyData =
 							this.provideBeauty.beautyData.filter((i) => i.id !== beautyId);

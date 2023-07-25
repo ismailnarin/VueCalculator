@@ -1,59 +1,44 @@
 {
-	"product": [
-		{
-			"title": "Telefon",
-			"created_at": "2023-07-17T13:25:56.601Z",
-			"price": 1000,
-			"image": "https://placehold.co/300x300",
-			"stock": 100,
-			"criticalStock": 1,
-			"id": 1
-		}
-	],
-	"beauty-services": [
-		{
-			"title": "deneme",
-			"created_at": "2023-07-20T13:38:59.061Z",
-			"price": 5000,
-			"image": "https://placehold.co/300x300",
-			"seans": [
-				{
-					"seansID": 1689860338042,
-					"seansNumber": 3,
-					"packagePrice": 12000
-				}
-			],
-			"seansCheck": true,
-			"id": 1
-		},
-		{
-			"title": "Cilt Bakımı",
-			"created_at": "2023-07-20T14:15:21.430Z",
-			"price": 2000,
-			"image": "https://placehold.co/300x300",
-			"seans": [
-				{
-					"seansID": 1689862513131,
-					"seansNumber": 3,
-					"packagePrice": 5000
-				},
-				{
-					"seansID": 1689862520462,
-					"seansNumber": 6,
-					"packagePrice": 9000
-				}
-			],
-			"seansCheck": true,
-			"id": 2
-		},
-		{
-			"title": "Kaş Kirpik",
-			"created_at": "2023-07-20T14:48:27.911Z",
-			"price": 1000,
-			"image": "https://placehold.co/300x300",
-			"seans": [],
-			"seansCheck": false,
-			"id": 3
-		}
-	]
+  "product": [
+    {
+      "title": "Telefon",
+      "created_at": "2023-07-17T13:25:56.601Z",
+      "price": 1000,
+      "image": "https://placehold.co/300x300",
+      "stock": 100,
+      "criticalStock": 1,
+      "id": 1
+    }
+  ],
+  "beauty-services": [
+    {
+      "title": "Cilt Bakımı",
+      "created_at": "2023-07-20T14:15:21.430Z",
+      "price": 2000,
+      "image": "https://placehold.co/300x300",
+      "seans": [
+        {
+          "seansID": 1689862513131,
+          "seansNumber": 3,
+          "packagePrice": 5000
+        },
+        {
+          "seansID": 1689862520462,
+          "seansNumber": 6,
+          "packagePrice": 9000
+        }
+      ],
+      "seansCheck": true,
+      "id": 2
+    },
+    {
+      "title": "Kaş Kirpik",
+      "created_at": "2023-07-20T14:48:27.911Z",
+      "price": 1000,
+      "image": "https://placehold.co/300x300",
+      "seans": [],
+      "seansCheck": false,
+      "id": 3
+    }
+  ]
 }

@@ -63,7 +63,26 @@
 	}
 
 	.modalContent {
+		overflow-y: auto;
+		max-height: 80vh;
 		display: flex;
+	}
+
+	.modalContent::-webkit-scrollbar {
+		width: 3px;
+	}
+
+	.modalContent::-webkit-scrollbar-track {
+		background: #414141;
+	}
+
+	.modalContent::-webkit-scrollbar-thumb {
+		background: #7b7b7b;
+		border-radius: 5px;
+	}
+
+	.modalContent::-webkit-scrollbar-thumb:hover {
+		background: #ffffff;
 	}
 	.modalBack {
 		z-index: 100;
