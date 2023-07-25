@@ -283,7 +283,6 @@
 					};
 					this.seansNumber = 0;
 					this.packagePrice = 0;
-					console.log(addPackage);
 					this.packages.push(addPackage);
 				}
 			},

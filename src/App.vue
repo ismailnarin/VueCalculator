@@ -23,6 +23,7 @@
 	import BeautyServices from "@/components/beauty-services/BeautyServicesList.vue";
 	import PopUp from "@/components/modal-popup/PopUp";
 	import EditProduct from "@/components/product/modal/ModalEditProduct";
+	import EditBeauty from "@/components/beauty-services/modal/ModalEditBeauty";
 	import CalculatorComponent from "@/components/calculator/CalculatorComponent";
 	import AmoundPaid from "@/components/paid-screen/AmoundPaid";
 	import ProductList from "@/components/product/ProductsList";
@@ -65,6 +66,7 @@
 			EditProduct,
 			TabMenu,
 			BeautyServices,
+			EditBeauty,
 		},
 		provide() {
 			return {

@@ -21,7 +21,7 @@
 		transition: all ease 0.3s;
 	}
 	.modal {
-		z-index: 100;
+		z-index: 200;
 		position: fixed;
 		width: 100%;
 		height: 100%;
@@ -30,6 +30,8 @@
 		align-items: center;
 	}
 	.modalContainer {
+		max-height: 90vh;
+		overflow-y: auto;
 		backdrop-filter: blur(5px);
 		background: linear-gradient(
 			62deg,

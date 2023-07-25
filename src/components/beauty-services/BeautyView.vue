@@ -155,7 +155,7 @@
 		inject: ["providePopUp", "provideBeauty"],
 		props: ["beautyFor"],
 		methods: {
-			editbeauty(beautyFor) {
+			editBeauty(beautyFor) {
 				this.providePopUp.popUpStatus = true;
 				this.providePopUp.popUpName = "EditBeauty";
 				this.provideBeauty.editBeauty = beautyFor;
