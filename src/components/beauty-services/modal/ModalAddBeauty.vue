@@ -25,9 +25,18 @@
 				required />
 		</div>
 		<div class="editBeauty">
-			<label for="beautyPrice">İşlem Tek Seans Ücreti</label
+			<label for="beautyPrice">İşlem Tek Seans Nakit Ücreti</label
 			><input
-				v-model="addBeautyItem.beautyPrice"
+				v-model="addBeautyItem.beautyPriceCash"
+				type="number"
+				name="beautyPrice"
+				id="beautyPrice"
+				required />
+		</div>
+		<div class="editBeauty">
+			<label for="beautyPrice">İşlem Tek Seans Kart Ücreti</label
+			><input
+				v-model="addBeautyItem.beautyPriceCard"
 				type="number"
 				name="beautyPrice"
 				id="beautyPrice"
@@ -66,13 +75,22 @@
 							v-model="seansNumber" />
 					</div>
 					<div class="seansCounter">
-						<label for="seansPrice">Paket Ücreti</label>
+						<label for="seansPrice">Paket Ücreti(Nakit)</label>
 						<input
 							style="width: 70%; margin-top: 15px"
 							type="number"
 							name=""
 							id="seansPrice"
-							v-model="packagePrice" />
+							v-model="packagePriceCash" />
+					</div>
+					<div class="seansCounter">
+						<label for="seansPrice">Paket Ücreti(Kart)</label>
+						<input
+							style="width: 70%; margin-top: 15px"
+							type="number"
+							name=""
+							id="seansPrice"
+							v-model="packagePriceCard" />
 					</div>
 					<div class="seansButtonContainer">
 						<button @click="addSeans">Ekle</button>
@@ -84,7 +102,8 @@
 						:key="value.seansID"
 						class="seansAddContainer">
 						<div>Seans Sayısı : {{ value.seansNumber }}</div>
-						<div>Paket Fiyatı : {{ value.packagePrice }}</div>
+						<div>Paket Fiyatı(Nakit) : {{ value.packagePriceCash }}</div>
+						<div>Paket Fiyatı(Kart) : {{ value.packagePriceCard }}</div>
 						<div><button @click="deleteSeans(value.seansID)">Sil</button></div>
 					</div>
 				</div>
@@ -259,10 +278,12 @@
 			return {
 				packages: [],
 				seansNumber: 0,
-				packagePrice: 0,
+				packagePriceCash: 0,
+				packagePriceCard: 0,
 				addBeautyItem: {
 					beautyName: "",
-					beautyPrice: "",
+					beautyPriceCash: "",
+					beautyPriceCard: "",
 					openPackageCheck: false,
 				},
 			};
@@ -275,14 +296,20 @@
 				);
 			},
 			addSeans() {
-				if (this.seansNumber !== 0 && this.packagePrice !== 0) {
+				if (
+					this.seansNumber !== 0 &&
+					this.packagePriceCash !== 0 &&
+					this.packagePriceCard !== 0
+				) {
 					const addPackage = {
 						seansID: Date.now(),
 						seansNumber: this.seansNumber,
-						packagePrice: this.packagePrice,
+						packagePriceCash: this.packagePriceCash,
+						packagePriceCard: this.packagePriceCard,
 					};
 					this.seansNumber = 0;
-					this.packagePrice = 0;
+					this.packagePriceCash = 0;
+					this.packagePriceCard = 0;
 					this.packages.push(addPackage);
 				}
 			},
@@ -294,7 +321,12 @@
 			async addBeauty() {
 				let error = { counter: 0, name: "" };
 				for (const [key, value] of Object.entries(this.addBeautyItem)) {
-					if ((key == "beautyName" || key == "beautyPrice") && value == "") {
+					if (
+						(key == "beautyName" ||
+							key == "beautyPriceCash" ||
+							key == "beautyPriceCard") &&
+						value == ""
+					) {
 						error.counter += 1;
 						error.name = key;
 						break;
@@ -305,7 +337,8 @@
 					const saveObject = {
 						title: this.addBeautyItem.beautyName,
 						created_at: new Date(),
-						price: this.addBeautyItem.beautyPrice,
+						priceCash: this.addBeautyItem.beautyPriceCash,
+						priceCard: this.addBeautyItem.beautyPriceCard,
 						image: "https://placehold.co/300x300",
 						seans: this.packages,
 						seansCheck: this.addBeautyItem.openPackageCheck,

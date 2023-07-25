@@ -7,8 +7,11 @@
 </template>
 <style>
 	.beautyEditIco {
+		display: flex;
 		color: white;
 		font-size: 35px;
+		flex-direction: column;
+		align-items: flex-end;
 	}
 	.beautyEditIco span {
 		cursor: pointer;

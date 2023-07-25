@@ -7,8 +7,11 @@
 </template>
 <style>
 	.productEditIco {
+		display: flex;
 		color: white;
 		font-size: 35px;
+		flex-direction: column;
+		align-items: flex-end;
 	}
 	.productEditIco span {
 		cursor: pointer;

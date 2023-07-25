@@ -12,19 +12,21 @@
 		<div class="beautyTitle">
 			{{ beautyFor.title }}
 		</div>
-		<div class="beautyPrice">{{ beautyFor.price }} TL</div>
+		<div class="beautyPrice">{{ beautyFor.priceCash }}TL</div>
 	</div>
 	<div v-if="beautyFor.seansCheck && seansWindow" class="beautySeans">
 		<div class="beautySeansContainer">
 			<span
 				><div>Tek Seans</div>
 				<div>:</div>
-				<div>{{ beautyFor.price }} TL</div></span
+				<div>Nakit :{{ beautyFor.priceCash }} TL</div>
+				<div>Kart :{{ beautyFor.priceCard }} TL</div></span
 			>
 			<span v-for="seans in beautyFor.seans" :key="seans.seansID"
 				><div>{{ seans.seansNumber }} Seans</div>
 				<div>:</div>
-				<div>{{ seans.packagePrice }} TL</div>
+				<div>Nakit :{{ seans.packagePriceCash }} TL</div>
+				<div>Kart :{{ seans.packagePriceCard }} TL</div>
 			</span>
 		</div>
 		<div class="closeButton" @click="seansWindow = !seansWindow">KAPAT</div>

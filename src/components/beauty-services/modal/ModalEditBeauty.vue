@@ -12,16 +12,25 @@
 				name="beautyName"
 				id="beautyName"
 				class="text"
-				:value="beauty.title" />
+				v-model="beauty.title" />
 		</div>
 		<div class="editBeauty">
-			<label for="beautyPrice">İşlem Fiyatı:</label
+			<label for="beautyPrice">İşlem Fiyatı(Nakit):</label
 			><input
 				type="text"
 				name="beautyPrice"
 				id="beautyPrice"
 				class="text"
-				:value="beauty.price" />
+				v-model="beauty.priceCash" />
+		</div>
+		<div class="editBeauty">
+			<label for="beautyPrice">İşlem Fiyatı(Kart):</label
+			><input
+				type="text"
+				name="beautyPrice"
+				id="beautyPrice"
+				class="text"
+				v-model="beauty.priceCard" />
 		</div>
 		<div class="openPackageContainer" style="">
 			<label for="openPackage" style="cursor: pointer"
@@ -55,13 +64,22 @@
 						v-model="seansNumber" />
 				</div>
 				<div class="seansCounter">
-					<label for="seansPrice">Paket Ücreti</label>
+					<label for="seansPrice">Paket Ücreti(Nakit)</label>
 					<input
 						style="width: 70%; margin-top: 15px"
 						type="number"
 						name=""
 						id="seansPrice"
-						v-model="packagePrice" />
+						v-model="packagePriceCash" />
+				</div>
+				<div class="seansCounter">
+					<label for="seansPrice">Paket Ücreti(Kart)</label>
+					<input
+						style="width: 70%; margin-top: 15px"
+						type="number"
+						name=""
+						id="seansPrice"
+						v-model="packagePriceCard" />
 				</div>
 				<div class="seansButtonContainer">
 					<button @click="addSeans">Ekle</button>
@@ -73,7 +91,8 @@
 				:key="value.seansID"
 				class="seansAddContainer">
 				<div>Seans Sayısı : {{ value.seansNumber }}</div>
-				<div>Paket Fiyatı : {{ value.packagePrice }}</div>
+				<div>Paket Fiyatı (Nakit) : {{ value.packagePriceCash }}</div>
+				<div>Paket Fiyatı (Kart) : {{ value.packagePriceCard }}</div>
 				<div><button @click="deleteSeans(value.seansID)">Sil</button></div>
 			</div>
 		</div>
@@ -248,11 +267,12 @@
 		data() {
 			return {
 				beauty: cloneDeep(this.provideBeauty.editBeauty),
-				packagePrice: 0,
+				packagePriceCash: 0,
+				packagePriceCard: 0,
 				seansNumber: 0,
 			};
 		},
-		inject: ["provideBeauty", "providePopUp"],
+		inject: ["provideBeauty", "providePopUp", "provideProduct"],
 		methods: {
 			deleteBeauty(beautyId) {
 				this.providePopUp.popUpStatus = false;
@@ -265,14 +285,20 @@
 					});
 			},
 			addSeans() {
-				if (this.packagePrice !== 0 && this.seansNumber !== 0) {
+				if (
+					this.packagePriceCash !== 0 &&
+					this.packagePriceCard !== 0 &&
+					this.seansNumber !== 0
+				) {
 					const addPackage = {
 						seansID: Date.now(),
 						seansNumber: this.seansNumber,
-						packagePrice: this.packagePrice,
+						packagePriceCash: this.packagePriceCash,
+						packagePriceCard: this.packagePriceCard,
 					};
 					this.seansNumber = 0;
-					this.packagePrice = 0;
+					this.packagePriceCash = 0;
+					this.packagePriceCard = 0;
 					this.beauty.seans.push(addPackage);
 				} else {
 					alert("Lütfen Seans verilerini eksiksiz giriniz.");
@@ -282,6 +308,28 @@
 				this.beauty.seans = this.beauty.seans.filter(
 					(item) => item.seansID !== seansID
 				);
+			},
+			async editSaveBeauty() {
+				console.log(this.beauty.seans);
+				const saveObject = {
+					title: this.beauty.title,
+					created_at: new Date(),
+					price: this.beauty.price,
+					image: "https://placehold.co/300x300",
+					priceCash: this.beauty.priceCash,
+					priceCard: this.beauty.priceCard,
+					seans: this.beauty.seans,
+					seansCheck: this.beauty.seansCheck,
+				};
+				axios.delete("http://localhost:3000/beauty-services/" + this.beauty.id);
+				await axios.post("http://localhost:3000/beauty-services", saveObject);
+				axios
+					.get("http://localhost:3000/beauty-services")
+					.then((items_response) => {
+						console.log(items_response);
+						this.provideBeauty.beautyData = items_response.data || [];
+						this.providePopUp.popUpStatus = false;
+					});
 			},
 		},
 		computed: {},

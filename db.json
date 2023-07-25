@@ -12,33 +12,14 @@
   ],
   "beauty-services": [
     {
-      "title": "Cilt Bakımı",
-      "created_at": "2023-07-20T14:15:21.430Z",
-      "price": 2000,
+      "title": "Deneme",
+      "created_at": "2023-07-25T14:59:01.128Z",
       "image": "https://placehold.co/300x300",
-      "seans": [
-        {
-          "seansID": 1689862513131,
-          "seansNumber": 3,
-          "packagePrice": 5000
-        },
-        {
-          "seansID": 1689862520462,
-          "seansNumber": 6,
-          "packagePrice": 9000
-        }
-      ],
-      "seansCheck": true,
-      "id": 2
-    },
-    {
-      "title": "Kaş Kirpik",
-      "created_at": "2023-07-20T14:48:27.911Z",
-      "price": 1000,
-      "image": "https://placehold.co/300x300",
+      "priceCash": "500",
+      "priceCard": "1010",
       "seans": [],
-      "seansCheck": false,
-      "id": 3
+      "seansCheck": true,
+      "id": 1
     }
   ]
 }
