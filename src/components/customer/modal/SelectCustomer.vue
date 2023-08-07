@@ -60,7 +60,7 @@
 				searchPhone: "",
 			};
 		},
-		inject: ["provideCustomer"],
+		inject: ["provideCustomer", "providePopUp"],
 		created() {
 			axios.get("http://localhost:3000/customer").then((items_response) => {
 				this.provideCustomer.customerList = items_response.data || [];
@@ -81,6 +81,8 @@
 			},
 			selectedCustomer(customer) {
 				console.log(customer);
+				this.provideCustomer.selectedCustomer = customer;
+				this.providePopUp.popUpStatus = false;
 			},
 		},
 	};
