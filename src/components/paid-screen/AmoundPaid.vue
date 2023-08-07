@@ -15,16 +15,16 @@
 <style>
 	.calculatorScreen {
 		font-family: monospace;
-		font-size: 100px;
+		font-size: 75px;
 		display: flex;
 		width: 100%;
-		height: 300px;
+		height: 200px;
 		color: white;
 		flex-direction: column;
 	}
 	.calculatorScreen div:nth-child(2),
 	.calculatorScreen div:nth-child(3) {
-		font-size: 50px;
+		font-size: 40px;
 		color: aliceblue;
 	}
 </style>

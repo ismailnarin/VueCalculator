@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex">
+	<div style="display: flex; width: 100%; height: 100%">
 		<div class="mainScreen">
 			<popUp v-if="this.popUp.popUpStatus" key="PopupSelectCustomer">
 				<template #modalContent>
@@ -17,7 +17,13 @@
 						</KeepAlive>
 					</div>
 				</div>
-				<div>
+				<div
+					style="
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+					">
+					<SelectedCustomer />
 					<AmoundPaid />
 					<CalculatorComponent />
 				</div>
@@ -29,6 +35,7 @@
 	</div>
 </template>
 <script>
+	import SelectedCustomer from "@/components/paid-screen/SelectedCustomer";
 	import AddCustomer from "@/components/customer/modal/AddCustomer";
 	import SelectCustomer from "@/components/customer/modal/SelectCustomer";
 	import PersonelContainer from "@/components/personel/modal/PersonelContainer";
@@ -80,6 +87,7 @@
 			};
 		},
 		components: {
+			SelectedCustomer,
 			PersonelContainer,
 			SelectCustomer,
 			AddCustomer,
@@ -137,6 +145,7 @@
 		flex-direction: column;
 	}
 	.mainContainer {
+		height: 100%;
 		display: flex;
 		justify-content: space-between;
 	}

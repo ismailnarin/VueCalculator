@@ -25,13 +25,13 @@
 <style>
 	.calculatorContainer {
 		display: flex;
-		width: 60%;
+		width: 100%;
 	}
 	.calculatorNumbers {
-		grid-template-columns: repeat(3, 100px);
+		grid-template-columns: repeat(3, 75px);
 		display: grid;
 		gap: 10px;
-		grid-template-rows: repeat(5, 100px);
+		grid-template-rows: repeat(5, 75px);
 	}
 	.calculatorNumberItem {
 		user-select: none;
@@ -65,8 +65,8 @@
 	.calculatorOperators {
 		margin-left: 10px;
 		color: white;
-		grid-template-columns: repeat(1, 100px);
-		grid-template-rows: repeat(1, 100px);
+		grid-template-columns: repeat(1, 75px);
+		grid-template-rows: repeat(1, 75px);
 		display: grid;
 		gap: 10px;
 	}
