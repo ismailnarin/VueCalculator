@@ -1,22 +1,26 @@
 <template>
 	<div style="display: flex">
 		<div class="mainScreen">
-			<popUp v-if="this.popUp.popUpStatus">
+			<popUp v-if="this.popUp.popUpStatus" key="PopupSelectCustomer">
 				<template #modalContent>
 					<KeepAlive>
-						<component :is="popUp.popUpName" />
+						<component :is="popUp.popUpName" :key="popUp.popUpName" />
 					</KeepAlive>
 				</template>
 			</popUp>
 			<TabMenu />
-			<div>
-				<div>
-					<div>
-						<KeepAlive> <component :is="tabMenu.tabMenuName" /></KeepAlive>
+			<div class="mainContainer">
+				<div style="display: flex; width: 100%">
+					<div style="display: flex; width: 100%; flex-direction: column">
+						<KeepAlive>
+							<component :is="tabMenu.tabMenuName" :key="tabMenu.tabMenuName" />
+						</KeepAlive>
 					</div>
 				</div>
-				<AmoundPaid />
-				<CalculatorComponent />
+				<div>
+					<AmoundPaid />
+					<CalculatorComponent />
+				</div>
 			</div>
 		</div>
 		<div class="customerMain">
@@ -43,7 +47,9 @@
 	export default {
 		data() {
 			return {
+				popUpCounter: 0,
 				customer: {
+					customerList: "",
 					selectedCustomer: "",
 				},
 				rightMenu: {
@@ -113,6 +119,9 @@
 			axios.get("http://localhost:3000/right-menu").then((items_response) => {
 				this.rightMenu.rightMenuData = items_response.data || [];
 			});
+			axios.get("http://localhost:3000/customer").then((items_response) => {
+				this.customer.customerList = items_response.data || [];
+			});
 		},
 	};
 </script>
@@ -126,5 +135,9 @@
 		display: flex;
 		width: 100%;
 		flex-direction: column;
+	}
+	.mainContainer {
+		display: flex;
+		justify-content: space-between;
 	}
 </style>

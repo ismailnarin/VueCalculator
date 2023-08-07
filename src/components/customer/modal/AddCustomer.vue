@@ -7,7 +7,7 @@
 		</div>
 		<div class="cusInnerContainer">
 			<label for="">Soyadı</label>
-			<input type="text" name="" id="" v-model="cusSurName" />
+			<input type="text" name="" id="" v-model="cusSurname" />
 		</div>
 		<div class="cusInnerContainer">
 			<label for="">Telefon Numarası</label>
@@ -77,7 +77,7 @@
 		data() {
 			return {
 				cusName: "",
-				cusSurName: "",
+				cusSurname: "",
 				cusPhone: "",
 			};
 		},
