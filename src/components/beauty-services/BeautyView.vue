@@ -14,25 +14,40 @@
 		</div>
 		<div class="beautyPrice">{{ beautyFor.priceCash }}TL</div>
 	</div>
-	<div v-if="beautyFor.seansCheck && seansWindow" class="beautySeans">
-		<div class="beautySeansContainer">
-			<span
-				><div>Tek Seans</div>
-				<div>:</div>
-				<div>Nakit :{{ beautyFor.priceCash }} TL</div>
-				<div>Kart :{{ beautyFor.priceCard }} TL</div></span
-			>
-			<span v-for="seans in beautyFor.seans" :key="seans.seansID"
-				><div>{{ seans.seansNumber }} Seans</div>
-				<div>:</div>
-				<div>Nakit :{{ seans.packagePriceCash }} TL</div>
-				<div>Kart :{{ seans.packagePriceCard }} TL</div>
-			</span>
+	<transition name="seansAnimation">
+		<div v-if="seansWindow" class="beautySeans" :key="elementKey">
+			<div class="beautySeansContainer">
+				<table>
+					<tr>
+						<td>Tek Seans</td>
+						<td>=></td>
+						<td>Nakit</td>
+						<td>:</td>
+						<td>{{ beautyFor.priceCash }} TL</td>
+						<td>Kart</td>
+						<td>:</td>
+						<td>{{ beautyFor.priceCard }} TL</td>
+					</tr>
+					<tr v-for="seans in beautyFor.seans" :key="seans.seansID">
+						<td>{{ seans.seansNumber }} Seans</td>
+						<td>=></td>
+						<td>Nakit</td>
+						<td>:</td>
+						<td>{{ seans.packagePriceCash }} TL</td>
+						<td>Kart</td>
+						<td>:</td>
+						<td>{{ seans.packagePriceCard }} TL</td>
+					</tr>
+				</table>
+			</div>
+			<div class="closeButton" @click="seansWindow = !seansWindow">KAPAT</div>
 		</div>
-		<div class="closeButton" @click="seansWindow = !seansWindow">KAPAT</div>
-	</div>
+	</transition>
 </template>
 <style>
+	table {
+		border-collapse: collapse;
+	}
 	.beautySeans {
 		box-sizing: border-box;
 		padding: 16px;
@@ -40,7 +55,6 @@
 		top: 0;
 		left: 104%;
 		display: flex;
-		width: 130%;
 		height: 150%;
 		position: absolute;
 		background: linear-gradient(
@@ -53,6 +67,26 @@
 		justify-content: space-between;
 		cursor: auto;
 		z-index: 100;
+		transform-origin: top left;
+	}
+	.seansAnimation-enter-active,
+	.seansAnimation-leave-active {
+		transition: all ease 0.2s; /* Kaybolma animasyonu için geçiş süresi belirleyin */
+	}
+
+	/* Elementi tamamen gizleme (opacity: 0) ve konumu değiştirme */
+	.seansAnimation-enter-from {
+		transform: scale(0);
+	}
+	.seansAnimation-enter-to {
+		transform: scale(1);
+	}
+	.seansAnimation-leave-to {
+		transform: scale(0);
+	}
+
+	.beautySeans.v-leave-to {
+		transform: scale(0);
 	}
 
 	.beautySeansContainer {
@@ -61,16 +95,15 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.beautySeansContainer span {
-		display: flex;
+	.beautySeansContainer table tr td {
 		font-weight: 300;
-		padding: 8px 0px 8px 8px;
+		padding: 8px;
 		border-bottom: 1px solid #ffffffa1;
 		transition: all ease 0.4s;
 		cursor: pointer;
-		flex-direction: row;
 		justify-content: space-between;
 		font-size: 15px;
+		white-space: nowrap;
 	}
 	.closeButton {
 		color: #ffeb3b;
@@ -87,7 +120,10 @@
 	.beautySeans div:last-child:hover {
 		color: white;
 	}
-	.beautySeansContainer span:hover {
+	.beautySeansContainer tr {
+		transition: all ease 0.5s;
+	}
+	.beautySeansContainer tr:hover {
 		border-radius: 10px;
 		background-color: #ffffff42;
 		font-weight: 300;

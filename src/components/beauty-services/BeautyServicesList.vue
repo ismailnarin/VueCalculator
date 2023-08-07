@@ -13,44 +13,6 @@
 	</div>
 </template>
 <style>
-	.beautySeans {
-		box-sizing: border-box;
-		padding: 16px;
-		border-radius: 15px;
-		top: 0;
-		left: 104%;
-		display: flex;
-		width: 130%;
-		height: 150%;
-		position: absolute;
-		background: linear-gradient(
-			62deg,
-			rgba(137, 55, 191, 1) 0%,
-			rgb(120 91 175) 50%,
-			rgba(180, 111, 168, 1) 100%
-		);
-		flex-direction: column;
-		justify-content: space-between;
-		cursor: auto;
-	}
-
-	.beautySeansContainer {
-		overflow-y: auto;
-		position: relative;
-		display: flex;
-		flex-direction: column;
-	}
-	.beautySeansContainer span {
-		display: flex;
-		font-weight: 300;
-		padding: 8px 0px 8px 8px;
-		border-bottom: 1px solid #ffffffa1;
-		transition: all ease 0.4s;
-		cursor: pointer;
-		flex-direction: row;
-		justify-content: space-between;
-		font-size: 15px;
-	}
 	.closeButton {
 		color: #ffeb3b;
 		display: flex;
@@ -63,16 +25,7 @@
 		text-decoration: underline;
 		font-size: 15px;
 	}
-	.beautySeans div:last-child:hover {
-		color: white;
-	}
-	.beautySeansContainer span:hover {
-		border-radius: 10px;
-		background-color: #ffffff42;
-		font-weight: 300;
-		padding: 8px 0px 8px 8px;
-		border-bottom: 1px solid #ffffffa1;
-	}
+
 	.beautyPrice {
 		font-size: 15px;
 	}

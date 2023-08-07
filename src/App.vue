@@ -1,23 +1,33 @@
 <template>
-	<popUp v-if="this.popUp.popUpStatus">
-		<template #modalContent>
-			<KeepAlive>
-				<component :is="popUp.popUpName" />
-			</KeepAlive>
-		</template>
-	</popUp>
-	<TabMenu />
-	<div>
-		<div>
+	<div style="display: flex">
+		<div class="mainScreen">
+			<popUp v-if="this.popUp.popUpStatus">
+				<template #modalContent>
+					<KeepAlive>
+						<component :is="popUp.popUpName" />
+					</KeepAlive>
+				</template>
+			</popUp>
+			<TabMenu />
 			<div>
-				<KeepAlive> <component :is="tabMenu.tabMenuName" /></KeepAlive>
+				<div>
+					<div>
+						<KeepAlive> <component :is="tabMenu.tabMenuName" /></KeepAlive>
+					</div>
+				</div>
+				<AmoundPaid />
+				<CalculatorComponent />
 			</div>
 		</div>
-		<AmoundPaid />
-		<CalculatorComponent />
+		<div class="customerMain">
+			<CustomerContainer />
+		</div>
 	</div>
 </template>
 <script>
+	import AddCustomer from "@/components/customer/modal/AddCustomer";
+	import SelectCustomer from "@/components/customer/modal/SelectCustomer";
+	import PersonelContainer from "@/components/personel/modal/PersonelContainer";
 	import AddBeauty from "@/components/beauty-services/modal/ModalAddBeauty";
 	import AddProduct from "@/components/product/modal/ModalAddProduct";
 	import BeautyServices from "@/components/beauty-services/BeautyServicesList.vue";
@@ -29,9 +39,16 @@
 	import ProductList from "@/components/product/ProductsList";
 	import axios from "axios";
 	import TabMenu from "@/components/tab-menu/tabMenu";
+	import CustomerContainer from "@/components/customer/CustomerContainer";
 	export default {
 		data() {
 			return {
+				customer: {
+					selectedCustomer: "",
+				},
+				rightMenu: {
+					rightMenuData: "",
+				},
 				beauty: {
 					beautyData: "",
 					editAllBeauty: false,
@@ -57,6 +74,9 @@
 			};
 		},
 		components: {
+			PersonelContainer,
+			SelectCustomer,
+			AddCustomer,
 			AddProduct,
 			AddBeauty,
 			PopUp,
@@ -67,9 +87,12 @@
 			TabMenu,
 			BeautyServices,
 			EditBeauty,
+			CustomerContainer,
 		},
 		provide() {
 			return {
+				provideCustomer: this.customer,
+				provideRightMenu: this.rightMenu,
 				provideData: this.screen,
 				provideProduct: this.product,
 				providePopUp: this.popUp,
@@ -87,6 +110,21 @@
 					console.log(items_response);
 					this.beauty.beautyData = items_response.data || [];
 				});
+			axios.get("http://localhost:3000/right-menu").then((items_response) => {
+				this.rightMenu.rightMenuData = items_response.data || [];
+			});
 		},
 	};
 </script>
+<style>
+	.customerMain {
+		display: flex;
+		width: 3%;
+		position: relative;
+	}
+	.mainScreen {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+	}
+</style>
