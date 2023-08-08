@@ -55,6 +55,10 @@
 		data() {
 			return {
 				popUpCounter: 0,
+				personel: {
+					personelList: "",
+					selectedPersonel: "",
+				},
 				customer: {
 					customerList: "",
 					selectedCustomer: "",
@@ -105,6 +109,7 @@
 		},
 		provide() {
 			return {
+				providePersonel: this.personel,
 				provideCustomer: this.customer,
 				provideRightMenu: this.rightMenu,
 				provideData: this.screen,
@@ -129,6 +134,9 @@
 			});
 			axios.get("http://localhost:3000/customer").then((items_response) => {
 				this.customer.customerList = items_response.data || [];
+			});
+			axios.get("http://localhost:3000/personel").then((items_response) => {
+				this.personel.personelList = items_response.data || [];
 			});
 		},
 	};

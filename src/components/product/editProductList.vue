@@ -11,7 +11,7 @@
 		color: white;
 		font-size: 35px;
 		flex-direction: column;
-		align-items: flex-end;
+		align-items: flex-start;
 	}
 	.productEditIco span {
 		cursor: pointer;

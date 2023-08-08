@@ -20,9 +20,44 @@
 				{{ operator }}
 			</div>
 		</div>
+		<div class="paymanentDiv">
+			<div class="paymanentInner">Kart</div>
+			<div class="paymanentInner">Nakit</div>
+		</div>
 	</div>
 </template>
-<style>
+<style scoped>
+	.paymanentDiv {
+		display: grid;
+		row-gap: 10px;
+		grid-template-columns: 75px;
+		margin: 0px 7px;
+	}
+	.paymanentInner {
+		font-weight: 700;
+		border-radius: 15px;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: center;
+		background: linear-gradient(
+			16deg,
+			rgb(100 17 101) 0%,
+			rgb(47 21 21) 50%,
+			rgb(100 17 101) 100%
+		);
+		cursor: pointer;
+		user-select: none;
+		transition: all ease 0.7s;
+	}
+	.paymanentInner:hover {
+		background: linear-gradient(
+			16deg,
+			rgb(165, 46, 167) 0%,
+			rgb(47 21 21) 50%,
+			rgb(165, 46, 167) 100%
+		);
+	}
 	.calculatorContainer {
 		display: flex;
 		width: 100%;
